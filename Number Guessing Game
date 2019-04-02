@@ -14,45 +14,46 @@ import random
 number = random.randint(1, 10)
 number_of_tries = random.randint(1,10)
 
-def guessing_number(guess_number):
-    guess_number = input("Pick a number between 1 to 10:  ")
-    guess_number = int(guess_number)
-
 def welcome_game():
     welcome = ("Welcome to the Number Guessing Game!")
     print("-"*(len(welcome)+3),"\n", welcome,
           "\n","-"*(len(welcome)+2),"\n")
            
 def start_game():
-    
-    guess_number = int(input("Pick a number between 1 to 10:  "))
-    count = 1
-    
-    while guess_number != number:
-        if guess_number > 10 or guess_number <= 0:
-            try:
-                raise ValueError("Please type a number between the range given")
-            except ValueError as err:
-                print("Oh no you should type a number! {}".format(err))  
-                guess_number = int(input("Pick a number between 1 to 10:  "))
-        if guess_number > number:
-            print("It's lower")
+    while True:
+        try:
             guess_number = int(input("Pick a number between 1 to 10:  "))
-            count += 1
-        elif guess_number < number:
-            print("It's Higher")
-            guess_number = int(input("Pick a number between 1 to 10:  "))
-            count += 1
-    else: 
-        print("\nYou got it! It took you {} tries".format(count))
-        try_again = input("Would you like to play again? [y]es/[n]o:  ")
-        if try_again.lower() == 'y':
-            print("\n\nYour HIGHSCORE is {}".format(count))
-            start_game()
-                   
-        else:   
-            print("\n\nYour Highscore is {}!".format(count))
-            print("Closing game, see you next time!")
+            count = 1
+            while guess_number != number:
+                if guess_number > 10 or guess_number <= 0:
+                    try:
+                        guess_number = int(input("Pick a number between 1 to 10:  "))
+                        raise ValueError("Please type a number between the range given")
+                    except ValueError as err:
+                        print("Oh no you should type a number! {}".format(err))  
+                if guess_number > number:
+                    print("It's lower")
+                    guess_number = int(input("Pick a number between 1 to 10:  "))
+                    count += 1
+                elif guess_number < number:
+                    print("It's Higher")
+                    guess_number = int(input("Pick a number between 1 to 10:  "))
+                    count += 1
+            else: 
+                print("\nYou got it! It took you {} tries".format(count))
+                try_again = input("Would you like to play again? [y]es/[n]o:  ")
+                if try_again.lower() == 'y':
+                    print("\n\nYour HIGHSCORE is {}".format(count))
+                    start_game()
+                           
+                else:   
+                    print("\n\nYour Highscore is {}!".format(count))
+                    print("Closing game, see you next time!")
+                    break
+        except ValueError:
+            print("Oh no you should type a number")
+        
+    
             
 
 if __name__ == '__main__':
